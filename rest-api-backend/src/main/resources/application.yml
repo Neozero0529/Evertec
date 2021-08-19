@@ -1,0 +1,35 @@
+server:
+ port : 8082
+ servlet:
+  context-path: /api/v1  
+ error:
+  whitelabel:
+   enabled: false
+  
+spring:
+ resources:
+  add-mappings: false  
+ mvc:
+   throw-exception-if-no-handler-found: true
+ jpa:
+   database-platform: org.hibernate.dialect.H2Dialect
+   show-sql: true
+   properties:
+    hibernate:
+     format_sql: false
+   hibernate:
+    ddl-auto: none		
+   datasource:
+   url: jdbc:h2:mem:testdb
+   username: sa
+   password: 
+   driverClassName: org.h2.Driver
+   messages:
+   basename: messages
+   h2:
+   console:
+    enabled: true
+    web-allow-others: false
+    settings:
+     trace: false   
+ 
