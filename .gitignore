@@ -49,3 +49,6 @@ local.properties
 
 # locally stored "Eclipse launch configurations"
 *.launch
+
+# dev
+*.log
