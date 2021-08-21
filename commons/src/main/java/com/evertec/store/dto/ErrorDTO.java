@@ -1,32 +1,47 @@
-package com.evertec.store.controller.exceptions.model;
+package com.evertec.store.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class ErrorResponse {
+public class ErrorDTO {
 	
 	private boolean success;
 	@JsonInclude(Include.NON_NULL)
 	private String requestId;	
-	private Date timestamp;	
+	private DateTime timestamp;
+	@JsonInclude(Include.NON_NULL)
 	private List<ErrorDetail> errors;
 
-	public ErrorResponse() {
+	public ErrorDTO() {
 		
-	}	
+	}
 	
-	public ErrorResponse(boolean success, String requestId, Date timestamp) {
+	public ErrorDTO(boolean success) {
+		super();
+		this.success = success;		
+		this.timestamp = new DateTime();		
+	}
+	
+	public ErrorDTO(boolean success, String requestId) {
+		super();
+		this.success = success;
+		this.requestId = requestId;
+		this.timestamp = new DateTime();		
+	}
+	
+	public ErrorDTO(boolean success, String requestId, DateTime timestamp) {
 		super();
 		this.success = success;
 		this.requestId = requestId;
 		this.timestamp = timestamp;		
 	}
 	
-	public ErrorResponse(boolean success, String requestId, Date timestamp, List<ErrorDetail> errors) {
+	public ErrorDTO(boolean success, String requestId, DateTime timestamp, List<ErrorDetail> errors) {
 		super();
 		this.success = success;
 		this.requestId = requestId;
@@ -50,11 +65,11 @@ public class ErrorResponse {
 		this.requestId = requestId;
 	}
 
-	public Date getTimestamp() {
+	public DateTime getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(DateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 

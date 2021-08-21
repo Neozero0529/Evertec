@@ -1,4 +1,4 @@
-package com.evertec.store.controller.exceptions.model;
+package com.evertec.store.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ErrorDetail {
 
     public static enum MessageCode {
-        AUTHENTICATION, ENVIRONMENT, INPUT, RUNTIME;
+        AUTHENTICATION, ENVIRONMENT, INPUT, RUNTIME, DATA;
     }
 
     private MessageCode code;

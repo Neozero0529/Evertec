@@ -1,4 +1,4 @@
-package com.evertec.store.controller.exceptions.resolver;
+package com.evertec.store.exceptions.resolver;
 
 import java.util.NoSuchElementException;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.evertec.store.config.Slf4jMDCFilterConfiguration;
-import com.evertec.store.controller.exceptions.model.ErrorDetail;
-import com.evertec.store.controller.exceptions.model.ErrorDetail.MessageCode;
-import com.evertec.store.controller.exceptions.model.ErrorResponse;
+import com.evertec.store.dto.ErrorDTO;
+import com.evertec.store.dto.ErrorDetail;
+import com.evertec.store.dto.ErrorDetail.MessageCode;
 
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -23,7 +23,7 @@ public class NoSuchElementExceptionResolver {
 
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<Object> handleNoSuchElementException(HttpServletRequest request, HttpServletResponse response, NoSuchElementException ex) {		
-		ErrorResponse error= new ErrorResponse(false,response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER));
+		ErrorDTO error= new ErrorDTO(false,response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER));
     	error.getErrors().add(new ErrorDetail(MessageCode.DATA, ex.getMessage()));
 	    return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);    
 	}
