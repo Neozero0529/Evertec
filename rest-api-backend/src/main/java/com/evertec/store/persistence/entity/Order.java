@@ -25,34 +25,35 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column()
+		
 	@NotNull
+	@Column(name="customer_name")
 	@Size(min = 3, max = 80)
-	private String customer_name;
-	
-	@Column()
+	private String customerName;
+		
 	@NotNull
+	@Column(name="customer_email")
 	@Size(min = 3, max = 120)
-	private String customer_email;
-	
-	@Column()
+	private String customerEmail;
+		
 	@NotNull
+	@Column(name="customer_mobile")
 	@Size(min = 3, max = 40)
-	private String customer_mobile;
-	
-	@Column()
+	private String customerMobile;
+		
 	@NotNull
+	@Column(name="status")
 	@Size(min = 3, max = 20)
 	private String status;
 	
-	@NotNull		
-	private DateTime  created_at;
+	@NotNull
+	@Column(name="created_at")
+	private DateTime  createdAt;
 	
-	@Column()		
-	private DateTime  updated_at;
+	@Column(name="updated_at")
+	private DateTime  updatedAt;
 	
 	public Order() {
 		super();
@@ -66,28 +67,28 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public String getCustomer_name() {
-		return customer_name;
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setCustomer_name(String customer_name) {
-		this.customer_name = customer_name;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
-	public String getCustomer_email() {
-		return customer_email;
+	public String getCustomerEmail() {
+		return customerEmail;
 	}
 
-	public void setCustomer_email(String customer_email) {
-		this.customer_email = customer_email;
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 
-	public String getCustomer_mobile() {
-		return customer_mobile;
+	public String getCustomerMobile() {
+		return customerMobile;
 	}
 
-	public void setCustomer_mobile(String customer_mobile) {
-		this.customer_mobile = customer_mobile;
+	public void setCustomerMobile(String customerMobile) {
+		this.customerMobile = customerMobile;
 	}
 
 	public String getStatus() {
@@ -98,25 +99,20 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public DateTime getCreated_at() {
-		return created_at;
+	public DateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(DateTime created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(DateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public DateTime getUpdated_at() {
-		return updated_at;
+	public DateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(DateTime updated_at) {
-		this.updated_at = updated_at;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setUpdatedAt(DateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
    
 }
-
