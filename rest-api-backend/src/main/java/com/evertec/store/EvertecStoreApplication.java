@@ -51,11 +51,11 @@ public class EvertecStoreApplication {
 	@PostConstruct
 	public void test() {		
 		 Order user = new Order();
-		 user.setCustomer_email("manuelosorio@usantotomas.edu.co"); 
-		 user.setCustomer_mobile("3212217567");
+		 user.setCustomerEmail("manuelosorio@usantotomas.edu.co"); 
+		 user.setCustomerMobile("3212217567");
 		 user.setStatus("rejected");
-		 user.setCustomer_name("manuel osorio"); 
-		 user.setCreated_at(new DateTime());
+		 user.setCustomerName("manuel osorio"); 
+		 user.setCreatedAt(new DateTime());
 		 orderRepository.save(user);	
 	}
 }
