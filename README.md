@@ -8,6 +8,7 @@ procede a la compra de su producto, como es debido, su sistema debe saber que se
 una nueva orden de pedido, asignarle su código único para identificarla y saber si esta se
 encuentra pendiente de pago o si ya se ha realizado un pago para poder “despacharla”.
 
+El servicio implementa una base de datos en memoria por lo cual en la ejecucion queda funcional para utilizar los servicios, para consultar los datos directalemnte usar la url: http://localhost:8082/api/v1/h2-console
 ### Requisitos 📋
 - Java 1.8 o superior
 - mvn
@@ -36,7 +37,23 @@ mvn package
 ```
 4. Ejecutar **SpringBoot**
 ```sh 
-jar -jar tarjet/
+jar -jar tarjet/rest-api-backend.jar
+```
+5. Ejecutar **SpringBoot**
+```sh 
+url base para el consumo: http://localhost:8082/api/v1/order 
+acepta post get
+http://localhost:8082/api/v1/order/{id}
+acepta get
 ```
 
-commons
+### Características
+- Control de excepciones con respuesta personalizada.
+- Generación de uuid por cada transacción, con capacidad de seguimiento en logs y retornando en el servicio.
+- Servicio implementado por capas
+- Uso de **lombok**
+- Uso de **joda time** para formato de tiempo
+- Integracion de pruebas junit con prueba al servicio, base de datos y lombok
+- Respuesta de los servicios segun el standard de **JSend**
+- Validaciones de los DTO
+- libreria commons para facilitar la integracion
