@@ -16,14 +16,9 @@
 package com.evertec.store.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +29,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.evertec.store.dto.OrderDTO;
+import com.evertec.store.dto.StatusOrderEnum;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,41 +40,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 public class OrderControllerTests {
 	
-	private class OrderVO implements Serializable {		
-		private static final long serialVersionUID = -7149190438168828801L;
-		
-		private String customer_id;
-		private String deliveryAddress;
-		private List<Integer> products;
-		 
-		public OrderVO(String customer_id, String deliveryAddress, List<Integer> products) {
-			super();
-			this.customer_id = customer_id;
-			this.deliveryAddress = deliveryAddress;
-			this.products = products;
-		}		 	
-	}
-
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     public void paramOrderShouldReturnAList() throws Exception {        
     	
-        this.mockMvc.perform(get("/api/v1/order/list")
-        		.param("customer", "1")
-        		.param("start", "14/03/2021")
-        		.param("end", "14/03/2021")).andDo(print()).andExpect(status().isOk())
-        		.andExpect(jsonPath("$").isArray());
+        this.mockMvc.perform(get("/api/v1/order"))
+        		.andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     public void createOrderFailByNotExpectedBody() throws Exception {
-
-    	this.mockMvc.perform(put("/api/v1/order/create")
-    		      .content(asJsonString(new OrderVO("1", "11001,BOGOTÁ, D.C.,Bogotá D.C.,KR 7 #26-20", Arrays.asList(10,10,15,18))))
+    	this.mockMvc.perform(post("/api/v1/order")
+    		      .content(asJsonString(new OrderDTO("camilo osorio","camilo.osorio@gmail.com","321221221",StatusOrderEnum.CREATED)))
     		      .contentType(MediaType.APPLICATION_JSON))    			  
-    		      .andDo(print()).andExpect(status().isCreated());    		      
+    		      .andDo(print()).andExpect(status().isOk());    		      
     }
     
     public static String asJsonString(final Object obj) {

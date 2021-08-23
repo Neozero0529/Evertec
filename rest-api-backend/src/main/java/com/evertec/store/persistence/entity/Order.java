@@ -48,8 +48,7 @@ public class Order implements Serializable {
 	private String customerMobile;
 				
 	@Enumerated(EnumType.STRING)
-	@Column(name="status",columnDefinition = "enum('CREATED','PAYED','REJECTED')", nullable = false)
-	@Size(min = 3, max = 20)
+	@Column(name="status",columnDefinition = "enum('CREATED','PAYED','REJECTED')", nullable = false)	
 	private StatusOrderEnum status;
 			
 	//@CreationTimestamp with datatime joda annotation does not work 

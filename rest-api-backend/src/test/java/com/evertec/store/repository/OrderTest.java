@@ -9,12 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.evertec.store.dto.OrderDTO;
+import com.evertec.store.service.OrderService;
 import com.evertec.store.service.impl.OrderServiceImpl;
 
 @SpringBootTest()
 public class OrderTest {
 	
-	private OrderServiceImpl orderService = new OrderServiceImpl();
+	private OrderService orderService = new OrderServiceImpl();
 
 	@Test	
 	@DisplayName("╯°□°）╯")
