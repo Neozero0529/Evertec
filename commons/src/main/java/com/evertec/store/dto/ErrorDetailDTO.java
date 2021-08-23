@@ -3,10 +3,10 @@ package com.evertec.store.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class ErrorDetail {
+public class ErrorDetailDTO {
 
     public static enum MessageCode {
-        AUTHENTICATION, ENVIRONMENT, INPUT, RUNTIME, DATA;
+        AUTHENTICATION, ENVIRONMENT, INPUT, RUNTIME, NO_SUCH_ELEMENT,MISSING_PATH, NOT_FOUND_RESOURCE, METHOD_ARGUMENT_NOT_VALID,INVALID_DEFINITION;
     }
 
     private MessageCode code;
@@ -14,14 +14,14 @@ public class ErrorDetail {
     @JsonInclude(Include.NON_NULL)
     private String detail;
 
-    public ErrorDetail() {}
+    public ErrorDetailDTO() {}
 
-    public ErrorDetail(MessageCode code, String message) {
+    public ErrorDetailDTO(MessageCode code, String message) {
         this.code = code;
         this.message = message;
     }
     
-    public ErrorDetail(MessageCode code, String message, String detail) {
+    public ErrorDetailDTO(MessageCode code, String message, String detail) {
         this.code = code;
         this.message = message;
         this.setDetail(detail);

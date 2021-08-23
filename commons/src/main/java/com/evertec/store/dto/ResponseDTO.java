@@ -8,79 +8,52 @@ import org.joda.time.DateTime;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class ErrorDTO {
+import lombok.Data;
+
+@Data
+public class ResponseDTO {
 	
-	private boolean success;
+	public static enum StatusCode {
+        success, fail, error;
+    }
+	
+	private StatusCode status;
 	@JsonInclude(Include.NON_NULL)
 	private String requestId;	
 	private DateTime timestamp;
+	@JsonInclude(Include.NON_EMPTY)
+	private List<ErrorDetailDTO> errors = new ArrayList<>();
 	@JsonInclude(Include.NON_NULL)
-	private List<ErrorDetail> errors;
-
-	public ErrorDTO() {
-		
-	}
+	Object data;	
 	
-	public ErrorDTO(boolean success) {
+	public ResponseDTO() {}
+	
+	public ResponseDTO(StatusCode success) {
 		super();
-		this.success = success;		
+		this.status = success;		
 		this.timestamp = new DateTime();		
 	}
 	
-	public ErrorDTO(boolean success, String requestId) {
+	public ResponseDTO(StatusCode success, String requestId) {
 		super();
-		this.success = success;
+		this.status = success;
 		this.requestId = requestId;
 		this.timestamp = new DateTime();		
 	}
 	
-	public ErrorDTO(boolean success, String requestId, DateTime timestamp) {
+	public ResponseDTO(StatusCode success, String requestId, DateTime timestamp) {
 		super();
-		this.success = success;
+		this.status = success;
 		this.requestId = requestId;
 		this.timestamp = timestamp;		
 	}
 	
-	public ErrorDTO(boolean success, String requestId, DateTime timestamp, List<ErrorDetail> errors) {
+	public ResponseDTO(StatusCode success, String requestId, DateTime timestamp, List<ErrorDetailDTO> errors) {
 		super();
-		this.success = success;
+		this.status = success;
 		this.requestId = requestId;
 		this.timestamp = timestamp;
 		this.setErrors(errors);
-	}
-
-	public boolean isSuccess() {
-		return success;
-	}
-
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
-
-	public String getRequestId() {
-		return requestId;
-	}
-
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-	}
-
-	public DateTime getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(DateTime timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public List<ErrorDetail> getErrors() {
-		if ( null == errors){
-			errors = new ArrayList<>();
-		}
-		return errors;
-	}
-
-	public void setErrors(List<ErrorDetail> errors) {
-		this.errors = errors;
-	}
+	}		
+	
 }

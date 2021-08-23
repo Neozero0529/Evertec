@@ -1,7 +1,7 @@
 package com.evertec.store.service;
 
-import com.evertec.store.persistence.entity.Order;
+import com.evertec.store.dto.OrderDTO;
 
-public interface OrderService extends CrudService<Order, Long> {
+public interface OrderService extends CrudService<OrderDTO, Long> {
 
 }

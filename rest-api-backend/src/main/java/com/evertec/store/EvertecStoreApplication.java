@@ -16,6 +16,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.evertec.store.dto.StatusOrderEnum;
 import com.evertec.store.persistence.entity.Order;
 import com.evertec.store.persistence.repository.OrderRepository;
 
@@ -53,7 +54,7 @@ public class EvertecStoreApplication {
 		 Order user = new Order();
 		 user.setCustomerEmail("manuelosorio@usantotomas.edu.co"); 
 		 user.setCustomerMobile("3212217567");
-		 user.setStatus("rejected");
+		 user.setStatus(StatusOrderEnum.CREATED);
 		 user.setCustomerName("manuel osorio"); 
 		 user.setCreatedAt(new DateTime());
 		 orderRepository.save(user);	

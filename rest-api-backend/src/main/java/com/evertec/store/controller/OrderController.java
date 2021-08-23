@@ -3,6 +3,9 @@ package com.evertec.store.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +18,19 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.evertec.store.config.Slf4jMDCFilterConfiguration;
+import com.evertec.store.dto.OrderDTO;
+import com.evertec.store.dto.ResponseDTO;
+import com.evertec.store.dto.ResponseDTO.StatusCode;
 import com.evertec.store.persistence.entity.Order;
 import com.evertec.store.persistence.repository.OrderRepository;
-import com.evertec.store.rest.validator.OrderRequestValidator;
 import com.evertec.store.service.OrderService;
+import com.evertec.store.validator.OrderRequestValidator;
 
 @RestController
 @RequestMapping(path = "/order", 
@@ -32,8 +40,6 @@ public class OrderController {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	
-
-
 	@Autowired
 	private OrderService orderService;
 
@@ -42,22 +48,45 @@ public class OrderController {
 //		binder.setValidator(orderRequestValidator);
 //	}
 
-
 	@PostMapping()
-	public String createOrder() {
-		return "create order";
+	public ResponseEntity<ResponseDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO, HttpServletResponse response) {
+		logger.info("create order");
+		OrderDTO order = orderService.create(orderDTO);
+		
+		ResponseDTO responseDTO = new ResponseDTO(StatusCode.success);
+		responseDTO.setData(order);
+		String requestId = response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER);
+		if ( null != requestId) {
+			responseDTO.setRequestId(requestId);
+		}		
+		return ResponseEntity.ok().body(responseDTO);		
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Order> getOrderById(@PathVariable(value = "id") Long orderId) {
+	public ResponseEntity<ResponseDTO> getOrderById(@PathVariable(value = "id") Long orderId,
+			HttpServletResponse response) {
 		logger.info("query order:" + orderId);
-		Order order = orderService.read(orderId);
-		return ResponseEntity.ok().body(order);
+		OrderDTO order = orderService.read(orderId);
+		
+		ResponseDTO responseDTO = new ResponseDTO(StatusCode.success);
+		responseDTO.setData(order);
+		String requestId = response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER);
+		if ( null != requestId) {
+			responseDTO.setRequestId(requestId);
+		}		
+		return ResponseEntity.ok().body(responseDTO);
 	}
 
 	@GetMapping()
-	public List<Order> getAllOrders() {
-		return  orderService.read();		
+	public ResponseEntity<ResponseDTO> getAllOrders(HttpServletResponse response) {
+		List<OrderDTO> order = orderService.read();
+		ResponseDTO responseDTO = new ResponseDTO(StatusCode.success);
+		responseDTO.setData(order);
+		String requestId = response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER);
+		if ( null != requestId) {
+			responseDTO.setRequestId(requestId);
+		}
+		return ResponseEntity.ok().body(responseDTO);	
 	}
 
 	@PutMapping()

@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.evertec.store.config.Slf4jMDCFilterConfiguration;
-import com.evertec.store.dto.ErrorDTO;
-import com.evertec.store.dto.ErrorDetail;
-import com.evertec.store.dto.ErrorDetail.MessageCode;
+import com.evertec.store.dto.ResponseDTO;
+import com.evertec.store.dto.ResponseDTO.StatusCode;
+import com.evertec.store.dto.ErrorDetailDTO;
+import com.evertec.store.dto.ErrorDetailDTO.MessageCode;
 
 @RestControllerAdvice
 public class GlobalExceptionResolver {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object>  handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) {
-    	ErrorDTO error= new ErrorDTO(false,response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER));
-    	error.getErrors().add(new ErrorDetail(MessageCode.RUNTIME, ex.getMessage()));
+    	ResponseDTO error= new ResponseDTO(StatusCode.error,response.getHeader(Slf4jMDCFilterConfiguration.DEFAULT_RESPONSE_TOKEN_HEADER));
+    	error.getErrors().add(new ErrorDetailDTO(MessageCode.RUNTIME, ex.getMessage()));
 	    return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);    	       
     }
 
