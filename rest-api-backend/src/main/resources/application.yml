@@ -1,0 +1,52 @@
+server:
+ port : 8082
+ servlet:
+  context-path: /api/v1
+ error:
+  whitelabel:
+   enabled: false
+  
+spring:
+ resources:
+  add-mappings: false
+    
+ mvc:
+   throw-exception-if-no-handler-found: true
+   
+ jpa:
+  database-platform: org.hibernate.dialect.H2Dialect
+  show-sql: true
+  properties:
+    hibernate:    
+     format_sql: true      
+    jadira:
+     usertype:
+      autoRegisterUserTypes: true   		
+  hibernate:
+   ddl-auto: create-drop     
+      
+ datasource:
+  url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+  driverClassName: org.h2.Driver
+  username: sa
+  password:
+     
+ messages:
+  basename: messages
+  
+ h2:
+  console:
+   enabled: true
+ web-allow-others: false
+ settings:
+  trace: false
+  
+ data:
+  jpa:
+   repositories:
+    bootstrap-mode: default   
+ 
+config:
+ slf4jfilter:
+  request_header: X-Header-Token
+  
